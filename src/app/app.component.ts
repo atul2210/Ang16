@@ -51,7 +51,7 @@ public ngOnInit()
   public async onScrollDown() {
    
    
-    debugger;
+    
       this.ShoppingApiService.getMenuId()
       .subscribe(async mnuId=>
         {
