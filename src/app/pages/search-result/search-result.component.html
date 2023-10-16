@@ -1,0 +1,67 @@
+<div  class = "container">
+  <app-sliders></app-sliders>
+</div>
+<!-- <ng-content></ng-content> -->
+
+<div  infiniteScroller (scrolled)="onScrollDown(search)"  >
+
+        <div style="background-color: rgb(247, 225, 250)" class = "ui four cards justify-content-center"  >
+      <div *ngFor="let item of items;let i=index" style= "padding: 5px; ">
+     
+   
+        <!-- <a target="_blank" [routerlink]="['/itemDetail/',item.itemid]" class ="red card">
+     -->
+          <div  class="image">
+            <img style="cursor: pointer;width:150px;height:150px;" [src]="item.image1 |safe:'url'">
+          </div>
+          <div class="">
+            <a class="header">{{item.itemName}}</a>
+            <!-- <div class="description" >
+              <span class="date">Description : {{item.itemDescription}}</span>
+            </div> -->
+            <div class="meta">
+              <span class="date">Color : {{item.color}}</span>
+            </div>
+            <div class="description" >
+             Size : {{item.sizeName}}
+            </div>
+            <div class="meta">
+              <span class="date">Price : {{item.price |currency :"₹":''}}</span>
+            </div>
+            <div class="meta">
+              <span class="date">Offer Price : {{item.offerPrice |currency :"₹":''}}</span>
+            </div>
+          </div>
+          <div >
+            
+              <i class="user icon"></i>
+              Brand : {{item.brand}}
+           
+          </div>
+
+
+  <!-- </a> -->
+    
+
+
+
+<!-- </div> -->
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+   <!-- <div class="paginator mat-elevation-z4" *ngIf="productsDisplayed.length !== 0">
+     <md-paginator
+       [length]="paginatorSize"
+       [pageSize]="numberOfProductsDisplayedInPage"
+       [pageSizeOptions]="[12, 24]"
+       (page)="updateProductsDisplayedInPage($event)">
+     </md-paginator> 
+   </div>
+</div>  -->

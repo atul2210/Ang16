@@ -1,0 +1,146 @@
+
+<div *ngIf= "!isCartEmpty">
+      <section class="h-100" style="background-color: #eee;">
+        <div class="container h-100 py-5">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+      
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-normal mb-0 text-black">Your Cart Items <i class="fa fa-smile-o" aria-hidden="true"></i></h3>
+                <div>
+                  <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
+                        class="fas fa-angle-down mt-1"></i></a></p>
+                </div>
+              </div>
+              <div *ngFor="let row of rows;let i=index">
+              <div class="card rounded-3 mb-4">
+                <div class="card-body p-4">
+                 
+                  <div class="row d-flex justify-content-between align-items-center">
+                 
+                    <table  class =" table-responsive">
+                      <tr>
+                        <td>
+                          <div class="col-md-4 col-lg-4 col-xl-4">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                              class="img-fluid rounded-3" alt="Cotton T-shirt">
+                          </div>
+                        </td>
+                        <td class="lead fw-normal mb-2"></td>
+                        <td>
+                          <div class="col-md-6 col-lg-6 col-xl-6 col-xm-6 d-flex">
+                            <button class="btn btn-link px-2"
+                            (click)="salequantitminus(i);" [disabled]="enableMinus[i]">
+                              <i class="fa fa-minus"></i> <i class="fa fa-spinner fa-spin" *ngIf="rowLoaderIndicator[i]"></i>
+                            </button>
+            
+                            <input id="form1" min="1"  maname="quantity" [(ngModel)]="rows[i].quantity" type="number"
+                              class="form-control form-control-sm" ngModel/>
+            
+                            <button class="btn btn-link px-2" [disabled]="enablePlus[i]"
+                            (click)="salequantityplus(i);" >
+                              <i class="fa fa-plus"> </i> <i class="fa fa-spinner fa-spin" *ngIf="rowLoaderIndicator[i]"></i>
+                            </button>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                              <a href="#!" class="text-danger"><i class="fa fa-trash fa-lg" (click)="updatecart(i,false,true)"></i></a>
+                            </div>
+                          </div> 
+                          <!-- <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h5 class="mb-0">{{rows[i].price}}</h5>
+                          </div> -->
+                        
+                          
+
+
+
+                        </td>
+                      </tr>
+  
+                    </table>
+
+
+                    <div class=" table-responsive">
+                      <table class="table table-condensed text-nowrap">
+                      
+                      <tr>
+                        <td class="text-muted">Category  </td>
+                        <td class="text-muted w-10 ">:</td>
+                        <td class="text-muted ">{{rows[i].categoryName}}</td>
+                        <td class="text-muted ">Color </td>
+                        <td>:</td>
+                        <td>{{rows[i].colorName}}</td>
+                        
+                        <!-- <td><span class="text-muted">Price: </span>{{rows[i].price}} <span class="text-muted ml-3">Offer Price: </span>{{rows[i].offerPrice}}</td> -->
+                      </tr>
+                      <tr>
+                        <td class="text-muted">Price  </td>
+                        <td >:</td>
+                        <td>{{rows[i].price |currency :"INR"}}</td>
+                        <td class="text-muted mr-3">Offer Price </td>
+                        <td>:</td>
+                        <td>{{rows[i].offerPrice |currency :"INR"}}</td>
+                       
+                      </tr>
+                      <tr>
+                        <td class="text-muted">Delivery Charges  </td>
+                        <td>:</td>
+                        <td>{{rows[i].deliveryCharges|currency :"INR"}}</td>
+                        <td class="text-muted mr-3">Size: </td>
+                        <td>:</td>
+                        <td>{{rows[i].sizeName}}</td>
+                       
+                      </tr>
+                      <tr>
+                        <td class="text-muted">Size </td>
+                        <td>:</td>
+                        <td> {{rows[i].sizeName }}</td>
+                        <td class="text-muted mr-3">Total Amount </td>
+                        <td>:</td>
+                        <td>{{rows[i].ttlAmount |currency :"INR"}}</td>
+                       
+                      </tr>
+                      </table>
+                    </div>
+                    </div>
+                </div>
+              </div>
+      
+            </div> 
+           
+              <div class="card mb-4 form-inline ">
+                <table  class ="table-responsive">
+                  <tr>
+                    <td>
+                      <div class="card-body  d-flex flex-row">
+                        <label class="form-label p-2" for="form1">Discount Code</label>
+                        
+                        
+                          <input type="text" id="form1" class=" form-control form-control-sm " />
+                          <span class="input-group-btn  form-control-sm mb-5">
+                            <button type="button" class=" btn btn-success btn-sm  ">Apply</button>
+                          </span>
+                        
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                </div>
+             
+          
+      
+              <div class="card">
+                <div class="card-body">
+                  <button type="button" (click)="placeOrder();" class="btn btn-warning btn-block btn-lg">Place Order</button>
+                </div>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div *ngIf= "isCartEmpty" class="m-5"><br><br><br><br><h4> Yout Cart is empty <span> <i class="fa fa-thumbs-down" style="color:blue;size:10px"></i></span> </h4><br><br><br><br></div>
+
+                        
+                         

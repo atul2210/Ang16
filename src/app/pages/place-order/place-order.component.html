@@ -1,0 +1,158 @@
+<form  class="container was-validated" role="form"  [formGroup]="PlaceOrderForm" 
+role="form"  >
+
+<div class="container tm-5">
+  <div class="row">
+    <div class="col-md-4 col-sm-4">
+      <h4 class="fontClass">Mailing Address :</h4>
+      
+    </div>
+    
+  </div>
+ 
+  <div class="form-group mt-5"
+  [ngClass]="{
+   'has-danger': username.invalid && (username.dirty || username.touched),
+   'has-success': username.valid && (username.dirty || username.touched)
+}">
+    <label class="fontClass">First Name</label>
+    <input type="username" #focusonAddress
+          class="form-control form-control-sm"
+          formControlName="username"
+          required>
+    <div class="form-control-feedback"
+        *ngIf="username.errors && (username.dirty || username.touched)">
+    <p style="color: red;" *ngIf="username.errors?.['required']">Name is required</p>
+
+    </div>
+
+</div>
+
+<div class="form-group ">
+  <label class="fontClass">Middle Name</label>
+  <input type="text" class="form-control form-control-sm" formControlName="userMiddleName"> 
+</div>
+
+
+<div class="form-group "
+[ngClass]="{
+ 'has-danger': userLastName.invalid && (userLastName.dirty || userLastName.touched),
+ 'has-success': userLastName.valid && (userLastName.dirty || userLastName.touched)
+}">
+  <label class="fontClass">Last Name</label>
+  <input type="userLastName"
+        class="form-control form-control-sm"
+        formControlName="userLastName"
+        required>
+  <div class="form-control-feedback"
+      *ngIf="userLastName.errors && (userLastName.dirty || userLastName.touched)">
+  <p style="color: red;" *ngIf="userLastName.errors?.['required']">Last Name is required</p>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+  <div class="">
+        <div class="form-group"
+            [ngClass]="{
+            'has-danger': address.invalid && (address.dirty || address.touched),
+            'has-success': address.valid && (address.dirty || address.touched)
+          }">
+     
+      <textarea rows="3"   class="form-control" formControlName="address" required ></textarea>
+            <div class="form-control-feedback"
+                *ngIf="address.errors && (address.dirty || address.touched)">
+            <p style="color: red;" *ngIf="address.errors?.['required']">Address is required</p>
+            <!-- <p *ngIf="address.errors.minlength">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength - password.errors.minlength.actualLength}} characters </p> -->
+            </div>
+      </div>
+</div>
+
+<label class="fontClass">State</label>
+    <!-- <select class="form-control form-control-sm" [(ngModel)]= "editselectedState" 
+            formControlName="mystate" [(ngModel)]= "selectedState" (change)= GetCities(selectedState) >
+            
+      <option *ngFor= "let lang of states" [value]= "lang.stateid"> {{lang.stateName}} </option>
+    </select> -->
+    <div class="form-group"
+    [ngClass]="{
+     'has-danger': city.invalid && (city.dirty || city.touched),
+     'has-success': city.valid && (city.dirty || city.touched)
+  }">
+      <label class="fontClass">City</label>
+          <select class="form-control form-control-sm" [(ngModel)]="editSelectedCity"  
+          formControlName="city"  >
+          <!-- <option [value]="null" disabled>Select</option> -->
+        <option *ngFor="let cc of cities" 
+        [value]="cc.stateid">{{cc.city}}
+        </option>
+      </select>
+      <div class="form-control"
+          *ngIf="city.errors && (city.dirty || city.touched)">
+      <p style="color: red;" *ngIf="city.errors?.['required']">City is required</p>
+  
+      </div>
+  
+  </div>
+
+  <div class="form-group"
+  [ngClass]="{
+   'has-danger': pin.invalid && (pin.dirty || pin.touched),
+   'has-success': pin.valid && (pin.dirty || pin.touched)
+}">
+    <label class="fontClass">Pin</label>
+    <input type="text"
+          class="form-control form-control-sm"
+          formControlName="pin"
+          required>
+    <div class="form-control-feedback"
+        *ngIf="pin.errors && (pin.dirty || pin.touched)">
+    <p style="color: red;" *ngIf="pin.errors?.['required']">Pin is required</p>
+
+    </div>
+
+</div>
+
+
+
+    <!-- <div class="form-control-feedback"
+    *ngIf="mystate.errors && (mystate.dirty || mystate.touched)">
+<p style="color: red;" *ngIf="mystate.errors.required">State is required</p> -->
+
+<!-- </div>
+  </div> -->
+  
+ <div style="font-size: 14px;  overflow:auto"class="pull-left">
+  <!-- <app-privacy-policy></app-privacy-policy> 
+   -->
+    <!-- <a style="color: red!important;"
+       [routerLink]="['/PrivacyPolicy']"> I agree to Terms, Conditions mentioned in Privacy and Return Policy. Read Privacy Policy 
+    </a> -->
+
+    <a style="color: red!important;"> I agree to Terms and Conditions mentioned in Privacy Policy and Return Policy. </a>
+    <input type ="checkbox"  ngModel  #chkEnable  class="ml-3" [ngModelOptions]="{standalone:true}"> 
+</div>
+<br>
+  <div *ngIf = "currentLesson" class="text-danger">Cart is empty</div>
+<br>
+  <div >
+    <button type="button" *ngIf= "isDisplayButton" (click)="EditAddress();" class=" display-2 mt-2 btn btn-success">Edit Address</button>
+    <button type="button" style= "width:160px;" *ngIf="isDisplayButton"  (click)="Order(chkEnable.checked);" class="display-2 mt-2 btn btn-success  pull-right" [disabled]="!chkEnable.checked">Make Payment</button>
+
+    <button *ngIf="isEdited" type="button" (click)="SaveAddress();" class="display-2 mt-2 btn btn-success">Save Address</button>
+
+
+  </div>
+
+
+
+
+</div>
+</form>

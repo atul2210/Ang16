@@ -1,0 +1,85 @@
+<div class="bg-light container" >
+     <ngx-datatable 
+      #myTable
+      class="datatable-scroll" style="height:320px;"
+      [columnMode]="'force'"
+      [headerHeight]="30"
+      [footerHeight]="50"
+      [rowHeight]="200"
+      
+      
+      [rows]='rows'
+      
+      (Page)="onPage($event)">
+     
+      <ngx-datatable-column >
+            <ng-template ngx-datatable-header-template>
+                    <span class="fontClass">Cart Items </span>
+             </ng-template>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div class="container" >
+            <div class="row">
+              <div class ="col-md-12">
+               <h4 style ="color:blue"> 
+                  <i [innerHTML]="row['itemname']"></i> </h4>
+              </div>
+            </div>
+            <div class="row">
+                <div class ="col-md-12">
+                  <img [src]="row['image1']" height="50" width="50" ><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class ="col-md-12">    
+                    <h4 style ="color:blueviolet">   Price : <i [innerHTML]="row['price']|currency:'INR'"></i></h4>
+            </div>
+            </div>
+            <div class="row">
+                <div class ="col-md-12">        
+                  <h4 style ="color:blue"> Offer Price : <i [innerHTML]="row['offerprice']|currency:'INR'"></i></h4>
+              </div>
+            </div>  
+            
+         
+                <div class="row">
+                    <div class ="col-md-12">
+                      <h4 style ="color:blue">    Color : <i [innerHTML]="row['colorname']"></i></h4>
+                </div>
+                </div>
+                <div class="row">
+                    <div class ="col-md-12">
+                      <h4 style ="color:blue"> Quantity : <i [innerHTML]="row['quantity']"></i></h4>
+                </div>
+                </div>
+                <div class="row">
+                  <div class ="col-md-12">
+                    <h4 style ="color:blue"> Total Amount : <i [innerHTML]="row['price']* row['quantity']|currency:'INR'" ></i></h4>
+              </div>
+              </div>
+                <div class="row">
+                  <div class ="col-md-12">
+                    <h4 style ="color:blue"> Total Offer Amount : <i [innerHTML]="row['paidAmount']|currency:'INR' " ></i></h4>
+              </div>
+              </div>
+
+              <div class="row">
+                <div class ="col-md-12">    
+                  <h4 style ="color:blueviolet">  Saved : <i [innerHTML]="((+row['price']) - (+row['offerprice']))  * (+row['quantity'])|currency:'INR'"></i></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class ="col-md-12">
+                       <button class ="btn btn-success" style="width:80px" (click)="RemoveItems(row['itemId'],row['quantity'],row['id'])" >
+                          <i class="fa fa-trash">  Delete</i> 
+                       </button>
+                   </div>
+                </div>
+          </div>
+             
+        </ng-template>
+      </ngx-datatable-column>
+
+    
+
+    </ngx-datatable> 
+    </div>

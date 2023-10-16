@@ -1,0 +1,78 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+  .card {
+    flex: 0 0 200px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  } 
+  .card img {
+    max-width: 100%;
+  }
+  .card .text {
+    padding: 0 20px 20px;
+  }
+  .card .text > button {
+    background: gray;
+    border: 0;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    }
+
+    
+.navbar{
+  background: rgb(236, 144, 245) ;
+}
+
+.dropdown{
+  border-radius:1;
+  border:1;
+}
+.dropdown-menu{
+  background:rgb(236, 144, 245);
+  border:0;
+  top:100%;
+  border-radius:0px 0px 5px 5px;
+}
+.dropdown-item:hover{
+  background:rgb(243, 163, 239);
+  color:rgb(190, 21, 233);
+}
+.dropdown-menu a{
+  color :royalblue
+} 
+.navbar .nav-item .nav-link{
+  color:rgb(138, 21, 233) !important; 
+  
+}
+.navbar .nav-item .nav-link:hover .navbar .nav-item .nav-link{
+  color:red !important;
+  
+}
+
+nav a {
+  display:inline;
+
+}
+
+.lisetting
+{
+  
+  margin: auto;
+  display: grid;
+   grid-template-columns: auto auto auto;
+  
+  justify-items: stretch;
+  align-items: stretch;
+  box-shadow: 1px 1px 1px 1px purple;
+  border: 1px solid;
+  padding: 5px;
+
+ 
+
+
+}
