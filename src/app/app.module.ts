@@ -63,6 +63,8 @@ import {PaymentOptionService} from './service/Payment-Options-Service';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {FlexLayoutServerModule} from '@angular/flex-layout/server';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { NgOptimizedImage } from '@angular/common'
 
 
  @NgModule({
@@ -142,7 +144,8 @@ import {FlexLayoutServerModule} from '@angular/flex-layout/server';
       ///////// LoginModule
       NgxDatatableModule,
      // DeviceDetectorService
-     RouterModule,FlexLayoutServerModule
+     RouterModule,FlexLayoutServerModule,NgxImageZoomModule,
+     NgOptimizedImage
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ShoppingApiService,Globals,
     ShoppingApiService,SingletonService,activateuserservce,itemService,

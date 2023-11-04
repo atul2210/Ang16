@@ -7,9 +7,9 @@ import {authguard} from '../../service/auth-guard'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 //import { stringify } from '@angular/core/src/render3/util';
-
+import { variable } from '@angular/compiler/src/output/output_ast';
 import { LoadingIndicatorServiceService } from '../../service/loading-indicator-service.service';
-
+import { LOCAL_STORAGE } from '@ng-toolkit/universal';
 import { itemService } from '../itemdetails/itemdetails.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   isOk=false;
   mobile:string="";
   loading:boolean=false;
-  constructor(  private route: ActivatedRoute,private loadingIndicatorService: LoadingIndicatorServiceService,
+  constructor(@Inject(LOCAL_STORAGE) private localStorage: any,  private route: ActivatedRoute,private loadingIndicatorService: LoadingIndicatorServiceService,
             private router: Router,private authguard:authguard,  private http:ShoppingApiService, private fb:FormBuilder,private location:Location,private itemService:itemService) 
     
    {
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
     {
      
       this.isOk=true;
-        localStorage.setItem("id_token",'');
+        this.localStorage.setItem("id_token",'');
       
         this.err=err.statusText; 
      
@@ -163,7 +163,7 @@ async closeModalDialog()
           
           });
     }
-    
+    else
       return false;
     }
 

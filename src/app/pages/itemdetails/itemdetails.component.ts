@@ -63,6 +63,11 @@ sizeIdParam:number=0;
 itemDesdription:string="";
 imageurl:string="";
 imageIndex:number=0;
+isLoading:boolean=false;
+
+myThumbnail="https://wittlock.github.io/ngx-image-zoom/assets/thumb.jpg";
+myFullresImage="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg";
+
   constructor( public restProvider:ShoppingApiService,public HomepageComponent:HomepageComponent,private route:ActivatedRoute, private globals:Globals,
     private router:Router, private CartItemServiceService:CartItemServiceService,private inotify:itemNotify,private loadingIndicatorService: LoadingIndicatorServiceService,private itemService:itemService
 
@@ -73,9 +78,12 @@ imageIndex:number=0;
       .onLoadingChanged
       .subscribe(isLoading => this.loading = isLoading);
 
+  
+     
+
+
     //////  this.itemService= new itemService();
-
-
+    
   }
   itemsdet:any[]=[]; 
   
@@ -107,22 +115,22 @@ imageIndex:number=0;
 GetItemDetails(itemId:string)
 {
 
-  
-  this.itemid=itemId;
  
+  this.itemid=itemId;
+  this.isLoading=true;
   this.restProvider.itemDetails(itemId,this.sizeIdParam)
   .subscribe(
     data => {
       debugger;
       this.itemsdet= Array.of(data.body)
-     
+      console.log('itemdetails',data.body.itemDetail.itemLists[0].availableQty)
       if(data.body.itemDetail.itemLists[0].availableQty>0) 
       {
         
         // data.body.image1= data.body.image1;
           this.availableSizes = this.itemsdet[0].availableSize; 
           this.itemsdet= Array.of(data.body)
-          console.log("dddds",this.availableSizes);
+       
         // //   ///this.colorDetail =data.body.availableColor.split(";")
         // //  // this.colorname=this.colorDetail[0]
           this.colorname=data.body.itemDetail.itemLists[0].colorName;
@@ -140,11 +148,14 @@ GetItemDetails(itemId:string)
           this.totalPaidAmount=this.offerprice;
           this.imageurl=data.body.itemDetail.itemLists[0].images[0];
           this.itemDesdription=data.body.itemDetail.itemDescripton;
+          this.isLoading=true;
       }
     else  
     {
       this.displayError=true;
+     
     }
+    this.isLoading=false;
   }
   
 )
@@ -168,7 +179,7 @@ GetItemDetails(itemId:string)
   addToCart(){
      
     let email=localStorage.getItem("email");
-      if(email!==null || email!.trim()!=="")
+      if(email!==null && email.length>0)
       {
             let data = new addToCart();
             data.colorId= this.coloId;
@@ -276,7 +287,7 @@ GetDetailsOnSizeChange(sizeid:number)
 ChangeImage(indx:number)
 {
   this.imageIndex=indx;
-   
+ 
 }
 
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ItemdetailsComponent} from './itemdetails.component';
 import { Routes,RouterModule } from '@angular/router';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
-//import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 // import {MatMenuModule,
 //     MatButtonModule,
@@ -40,7 +40,7 @@ const routes: Routes = [{ path: '', component: ItemdetailsComponent },
     MatDividerModule, 
     MatListModule,MatFormFieldModule,MatInputModule,
     CurrencyPipe,
-
+    NgxImageZoomModule,
     RouterModule.forChild(routes)
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ], 

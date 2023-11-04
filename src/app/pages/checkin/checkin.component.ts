@@ -251,7 +251,9 @@ salequantitminus(minus:number)
     }
   }
 
-
+  customTrackBy(index: number, obj: any): any {
+    return index;
+  }
 
 }
 

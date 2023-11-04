@@ -23,6 +23,7 @@ export class HomepageComponent implements OnInit,OnDestroy {
   itemname:string;
   menuitems:string[];
   loading:boolean=false;
+ 
   constructor( private router:Router, private search : SearchResultComponent,private globals: Globals,private ShoppingApiService:ShoppingApiService,
   private CartItemServiceService:CartItemServiceService,public totalItem:itemNotify,private loadingIndicatorService: LoadingIndicatorServiceService,private service:MenuServiceService ) 
   

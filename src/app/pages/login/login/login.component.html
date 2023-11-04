@@ -5,7 +5,7 @@
 
    
       <div *ngIf="loading" >  
-        <img src ="assets/loading/loading.gif" class = "header-shadow" > Loading ...
+        <img src ="assets/loading/loading.gif" class = "header-shadow" > 000Loading ...
       </div>
 
 <div class="row">
@@ -22,8 +22,8 @@
       <span class="help-block" *ngIf="(loginForm.get('username').touched ||
                                        loginForm.get('username').dirty) &&
                                        loginForm.get('username').errors">
-              <span class="text-danger" *ngIf="loginForm.get('username').errors?.['required']">Please enter email id</span>                        
-              <p *ngIf="loginForm.get('username').errors?.['pattern']" class ="text-danger">Email address must contain  @ character</p>
+              <span class="text-danger" *ngIf="loginForm.get('username').errors.required">Please enter email id</span>                        
+              <p *ngIf="loginForm.get('username').errors.pattern" class ="text-danger">Email address must contain  @ character</p>
             </span>
   
     </div>
@@ -34,7 +34,7 @@
       <span class="help-block " *ngIf="(loginForm.get('password').touched ||
       loginForm.get('password').dirty) &&
       loginForm.get('password').errors">
-<span class="text-danger" *ngIf="loginForm.get('password').errors?.['required']">Please enter password</span>                        
+<span class="text-danger" *ngIf="loginForm.get('password').errors.required">Please enter password</span>                        
 </span>
     
     

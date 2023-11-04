@@ -9,9 +9,7 @@ import { Observable } from 'rxjs';
 import { share, finalize } from 'rxjs/operators';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Title, Meta } from '@angular/platform-browser';
-
-
-
+ 
 
 import {MenuServiceService} from '../../service/menu/menu-service.service'
 import { Subscription } from 'rxjs';
@@ -29,7 +27,7 @@ import { Router,NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
   
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  
+ 
 })
 
 

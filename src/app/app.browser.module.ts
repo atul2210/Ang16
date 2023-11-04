@@ -15,7 +15,7 @@ import {Globals} from './model/global'
 import {serviceintercepter} from './service/sevice-intercepter';
 import {authguard} from '../app/service/auth-guard';
 
-import { NgxImgZoomModule } from 'ngx-img-zoom';
+
 /////////import { SliderModule } from 'ngx-slider';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
@@ -66,9 +66,11 @@ import {ReturnPolicyComponent} from './pages/return-policy/return-policy.compone
 import { AppModule } from './app.module';
 import {PaymentOptionService} from './service/Payment-Options-Service';
 import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
-import { NgtUniversalModule, WINDOW } from '@ng-toolkit/universal';
+//import { NgtUniversalModule, WINDOW } from '@ng-toolkit/universal';
 import {provideClientHydration} from '@angular/platform-browser';
 import {FlexLayoutServerModule} from '@angular/flex-layout/server';
+import { NgOptimizedImage } from '@angular/common'
+
  @NgModule({
   imports: [
     FlexLayoutModule,  ReactiveFormsModule,HttpClientModule,RouterModule,NgxDatatableModule,
@@ -137,7 +139,8 @@ import {FlexLayoutServerModule} from '@angular/flex-layout/server';
         AppModule,
        // BrowserTransferStateModule,
       //  DeviceDetectorService
-      RouterModule,FlexLayoutServerModule
+      RouterModule,FlexLayoutServerModule,
+      NgOptimizedImage
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ShoppingApiService,Globals,
     ShoppingApiService,SingletonService,activateuserservce,itemService,
@@ -174,8 +177,8 @@ import {FlexLayoutServerModule} from '@angular/flex-layout/server';
     FlexLayoutModule,
     PaymentOptionService,
     provideClientHydration(),
-    NgtUniversalModule,
-    { provide: WINDOW, useValue: {} }
+    //NgtUniversalModule,
+   // { provide: WINDOW, useValue: {} }
   ],
     
   

@@ -63,7 +63,7 @@
                                                 <div>
                                                     <a target='_blank' [routerLink]="['/itemDetail/',parentdata.temid,parentdata.sizeid]" class ="">
                                                           <div class="card" style="width: 15rem;" scope="parentdata">
-                                                            <img   class="card-img-top" height="130" width="250" [src]="parentdata.images[0]|safe:'url'"/>
+                                                            <img   class="card-img-top" height="130" width="250" [ngSrc]="parentdata.images[0]" loading ="lazy" />
                                                                 <div class="card-body">
                                                                   <h5 class="card-title">{{parentdata.itemDescripton}}</h5>
                                                                     <p class="card-text">Brand: {{parentdata.brand}}  </p>
