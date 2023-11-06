@@ -24,12 +24,19 @@ export class MenuServiceService {
 
   public menuitems(): Observable<any> 
   {
+    
+    let headersToSend = new HttpHeaders();
+    headersToSend = headersToSend
+    //.set('Bearer', 'Access Token Here')
+    .set('Accept','application/json');
     this.uri=this.baseUrl+"/api/Menu/GetMenu";
    
      return this.http.get(
-     this.uri, { observe: 'response'}).pipe(
+     this.uri,{ observe: 'response'}).pipe(
       
      );
+
+     
   }
 
 public changeSelectedItem(totalItem:string|null)

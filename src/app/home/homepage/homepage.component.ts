@@ -17,7 +17,7 @@ import { checkedInItemsArray } from '../../model/checkedInItems';
   selector: 'app-root',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
-  
+  host: {ngSkipHydration: 'true'}
 })
 export class HomepageComponent implements OnInit,OnDestroy {
   itemname:string;

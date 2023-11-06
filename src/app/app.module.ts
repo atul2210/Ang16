@@ -180,7 +180,7 @@ import { NgOptimizedImage } from '@angular/common'
   
     },
     PaymentOptionService,
-    provideClientHydration(),
+    //provideClientHydration(),
      //NgtUniversalModule,
     // { provide: WINDOW, useValue: {} }
     FlexLayoutModule,

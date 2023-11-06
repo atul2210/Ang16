@@ -28,6 +28,7 @@ import { Router,NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
  
+ 
 })
 
 

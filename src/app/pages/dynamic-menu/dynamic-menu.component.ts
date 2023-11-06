@@ -48,7 +48,8 @@ export class DynamicMenuComponent implements OnInit {
     .subscribe((res:Response)=>
     {
        this.menuitems = res.body
-       console.log('menuitem',this.menuitems)
+       console.log('menuitem',this.menuitems),
+       error => console.log('MenuError', error)
     });
   }
 
