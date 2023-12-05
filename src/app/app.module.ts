@@ -66,6 +66,32 @@ import {FlexLayoutServerModule} from '@angular/flex-layout/server';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { NgOptimizedImage } from '@angular/common'
 
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
+import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+
+//vidhimshopping@gmail.com
+
+
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
 
  @NgModule({
   declarations: [
@@ -145,9 +171,13 @@ import { NgOptimizedImage } from '@angular/common'
       NgxDatatableModule,
      // DeviceDetectorService
      RouterModule,FlexLayoutServerModule,NgxImageZoomModule,
-     NgOptimizedImage
+     NgOptimizedImage,
+     SocialLoginModule,
+     NgcCookieConsentModule.forRoot(cookieConfig),
+     GoogleSigninButtonModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},ShoppingApiService,Globals,
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},ShoppingApiService,Globals,
     ShoppingApiService,SingletonService,activateuserservce,itemService,
     {
       provide:HTTP_INTERCEPTORS,
@@ -185,7 +215,36 @@ import { NgOptimizedImage } from '@angular/common'
     // { provide: WINDOW, useValue: {} }
     FlexLayoutModule,
     
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '655422195456-ie5u9n7mhfad9f86eikqae45ntgs3778.apps.googleusercontent.com',
+              {
+                scopes: 'openid profile email',
+              }
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+
+        
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+
+
     
+      
   ],
     
   

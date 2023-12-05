@@ -1,110 +1,77 @@
-
-<!-- <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" > -->
-<div class="container fontClass">  
-  <form [formGroup]="loginForm" >
-
-   
-      <div *ngIf="loading" >  
-        <img src ="assets/loading/loading.gif" class = "header-shadow" > Loading ...
-      </div>
-
-<div class="row">
-<div class="col-md-12 col-sm-12 col-xs-12  box-header with-border" style="position:relative;top:10px;"
- [ngClass]="{'has-error':(loginForm.get('username').touched || loginForm.get('username').dirty)}">
-  
-
- 
- <div class="form-group"  >
-   <h3>Login </h3>
-   <hr>
-  <label>Email</label>
-      <input  type="email" placeholder="" formControlName="username" class="form-control" >
-      <span class="help-block" *ngIf="(loginForm.get('username').touched ||
-                                       loginForm.get('username').dirty) &&
-                                       loginForm.get('username').errors">
-              <span class="text-danger" *ngIf="loginForm.get('username').errors?.['required']">Please enter email id</span>                        
-              <p *ngIf="loginForm.get('username').errors?.['pattern']" class ="text-danger">Email address must contain  @ character</p>
-            </span>
-  
-    </div>
-    <div class="form-group">
-      <!-- <label for="pwd">Password:</label> -->
-      <label>Password</label>
-      <input  type="password" placeholder="" formControlName="password"  class="form-control">
-      <span class="help-block " *ngIf="(loginForm.get('password').touched ||
-      loginForm.get('password').dirty) &&
-      loginForm.get('password').errors">
-<span class="text-danger" *ngIf="loginForm.get('password').errors?.['required']">Please enter password</span>                        
-</span>
-    
-    
-    </div>
-    <div *ngIf="isOk">
-      <div style = "margin-left :40px;" class="text-danger font-weight-bold" >{{err}}</div>
-    </div>
+<div class="outer">
+  <div class="container">
     <div class="row">
-   
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      
-        <!-- <button class="btn btn-success pull-left " style="width:125px" >Cancel</button> -->
-        <button class=" btn-success pull-right" style="width:125px" type="submit" [disabled]="!loginForm.valid" (click)="onSubmit()" >Submit</button>
-    </div>
-    </div>
-    <br>
-    <div class="pull-right">  
-      <a class="" (click)="forgetpassword()" style="width:auto; cursor:pointer;padding-right: 10px ;"  >Forget Password</a>
-        <a style="width:auto; cursor:pointer;" class=""   (click)="changepassword()" >Change Password</a>
-   </div>
-   
-</div>
-</div>
-
-
-<!-- <div class="backdrop" [ngStyle]="{'display':display}"></div> -->
-
-<!-- modal -->
-
-
-
-
-<div class="modal form-group "   tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
-  
-  <div class="modal-dialog" role="document">
-    <!-- modal-content -->
-    <div class="modal-content" style="background-color:burlywood" >
-      <!-- modal-header -->
-      <div class="modal-header"style="background-color:blue" >
-        <button type="button" class="close" aria-label="Continue" (click)="closeModel()"><span aria-hidden="true">&times;</span></button>
-        <!-- <h4 class="modal-title">Login</h4> -->
-      </div>
-
-      <!-- modal-body -->
-      <!-- <div class="modal-body">
-        
-            <div class="form-group">
-                <input type="text"  formControlName="mobileNumber" required placeholder="Mobile Number" >
-                <span  *ngIf="(loginForm.get('mobileNumber').touched ||
-                loginForm.get('mobileNumber').dirty) &&
-                loginForm.get('mobileNumber').errors">
-                <span class="alert-danger" *ngIf="loginForm.get('mobileNumber').errors.required">Please Enter Valid Mobile Number</span>                        
-                </span>
-            
+      <div class="offset md2 col-lg-5 col-md-12 offset-lg-4 offset-md-3">
+        <div class="panel border bg-white ">
+            <div class="panel-heading">
+              <h3 class="pt-3 font-weight-bold">Login </h3>
+            </div>
+                  <div class="panel-body p-3">
+                    <form [formGroup]="loginForm">
+                        <div class="class form-group pt-1">
+                          <div class="input-field">
+                            <span class="fa fa-user p-2">  </span>
+                                <input  type="text" placeholder="User name or mobile number" formControlName="username" >
+                                    <span class="help-block" *ngIf="(loginForm.get('username').touched ||
+                                                                    loginForm.get('username').dirty) &&
+                                                                    loginForm.get('username').errors">
+                                            <span class="text-danger p-2" *ngIf="loginForm.get('username').errors?.['required']">Please enter email id</span>                        
+                                            <!-- <p *ngIf="loginForm.get('username').errors?.['pattern']" class ="pl-4 text-danger">Email address must contain  @ character</p> -->
+                                            
+                                    </span>
+                        
+                            
+                          </div>
+                        </div>
+                        <div class="class form-group ">
+                          <div class="input-field">
+                              <span class="fa fa-lock p-2">  </span>
+                                <input  [type]="type" placeholder="Password" formControlName="password">
+                                <span class="fa fa-eye-slash" (click)="hideShowPress();"></span>  
+                                <span class="help-block " *ngIf="(loginForm.get('password').touched ||
+                                     loginForm.get('password').dirty) &&
+                                      loginForm.get('password').errors">
+                                          <span class="text-danger" *ngIf="loginForm.get('password').errors?.['required']">Please enter password</span>                        
+                                  </span>
+                        
+                            
+                          </div>
+                        </div>
+                   
+                            <div *ngIf="isOk">
+                              <div  class="text-danger font-weight-bold pl-4" >{{err}}</div>
+                            </div>
+                            <div class="form-inline">
+                              <a id="forget"  class="link font-weight-bold" (click)="forgetpassword()">Forget Password</a>
+                              <a id="change"class="font-weight-bold p-2"   (click)="changepassword()" >Change Password</a>
+                              
+                            </div>
+                                  
+                                      <div class="pt-2 pl-4 text-bold">Don't have account?
+                                            <a id="forget" routerLink="/registration">Sign Up</a>
+                                      </div>
+                                      <button class="  btn btn-primary pull-right" type="submit" [disabled]="!loginForm.valid" (click)="onSubmit()" >Submit</button>
+                          </form>
+                        <br><br>
               </div>
-            <div>
-              Once you click on continue button, you will receive OTP in your mobile.   
-            </div>  
-      </div> -->
+              <div class="mx-3 my-2 py-2 border">
+                <div class="m-2">
+                  <asl-google-signin-button type='icon' size='medium' text= 'signup_with'></asl-google-signin-button>
+              </div>
+          </div>
 
-      <!-- modal-footer -->
-      <div *ngIf="isOk">
-        <div style = "margin-left :40px;" class="text-danger font-weight-bold" >{{err}}</div>
+
       </div>
-      <!-- <div class="modal-footer" style="background-color:rgb(137, 202, 73)" >
-        <button type="button" class="btn btn-success buttonmargin" style="text-transform:none" (click)="closeModalDialog()" >Continue</button>
-      </div> -->
     </div>
-  </div>
+
+   
+
+    </div>
+
 </div>
 
-</form>
-</div>
+
+
+
+
+

@@ -24,46 +24,35 @@ export class UserRegistrationComponent implements OnInit {
   selectedState;
 
   response:any=null;
-
-  // myform: FormGroup;
-  // mobile:FormControl;
-  // firstName: FormControl;
-  // middleName:FormControl;
-  // lastName: FormControl;
-  // myemail: FormControl;
-  // password: FormControl;
-  // //language: FormControl;
-  // city:FormControl;
-  // address:FormControl;
-  // mystate:FormControl;
-  // ulternatemobile:FormControl;
-  // pin:FormControl;
-  // otp:FormControl;
+  isOtp:boolean=false;
+  
   ResState:any;
   afterSubmit:boolean=false;
   entMobile:number
   err:any;
   messege:string="";
-
+ 
 
 
   myform: FormGroup = new FormGroup({
-    username: new FormControl(''),
+    //username: new FormControl(''),
     mobile: new FormControl(''),
     firstName: new FormControl(''),
-    middleName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(false),
-    password: new FormControl(false),
+   // middleName: new FormControl(''),
+    //lastName: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
     
-    confirmpassword: new FormControl(false),
-    city: new FormControl(false),
-    address: new FormControl(false),
+    confirmPassword: new FormControl(''),
+    //city: new FormControl(''),
+    //address: new FormControl(''),
   });
   submitted = false;
  
-
-  
+  OtpForm: FormGroup = new FormGroup({
+    Otp: new FormControl(''),
+  });
+  Otpsubmitted = false;
   constructor(private formBuilder: FormBuilder, private ActivatedRoute:ActivatedRoute,private router:Router,private ShoppingApiService:ShoppingApiService,private activateuserservce:activateuserservce) { }
   
   
@@ -72,34 +61,49 @@ export class UserRegistrationComponent implements OnInit {
     this.myform = this.formBuilder.group(
       {
        
-        username: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(20),
-          ],
-        ],
-        mobile: ['', [Validators.required],  Validators.minLength(10), Validators.maxLength(10)],
-        email: ['', [Validators.required, Validators.email]],
+        // username: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.minLength(6),
+        //     Validators.maxLength(20),
+        //   ],
+        // ],
+        mobile: ['', [Validators.required,  Validators.minLength(10), Validators.maxLength(10)]],
+        firstName: ['', Validators.required],
+        //middleName: [false, Validators.required],
+        //lastName: ['', Validators.required],
+        email: ['', [ Validators.email]],
         password: [
           '',
           [
             Validators.required,
-            Validators.minLength(8),
+            Validators.minLength(6),
             Validators.maxLength(40),
           ],
         ],
         confirmPassword: ['', Validators.required],
-        city:  ['', Validators.required],
-        address:  ['', Validators.required],
+       // city:  ['', Validators.required],
+       // address:  ['', Validators.required],
         acceptTerms: [false, Validators.requiredTrue],
       },
       {
-        validators: [Validation.match('password', 'confirmpassword')],
+        validators: [Validation.match('password', 'confirmPassword')],
       }
     );
 
+
+    this.OtpForm = this.formBuilder.group(
+      {
+       
+        Otp: [
+          '',
+          [
+            Validators.required,
+          ],
+        ]
+      }
+    );
 
 
 
@@ -113,7 +117,7 @@ export class UserRegistrationComponent implements OnInit {
     {
       this.ResState=res.body;
       this.states=this.ResState;
-      //console.log("states",this.states)
+      
       
     });
 
@@ -122,6 +126,8 @@ export class UserRegistrationComponent implements OnInit {
     }
    
     get f(): { [key: string]: AbstractControl } {
+    
+     
       return this.myform.controls;
     }
   
@@ -188,6 +194,12 @@ export class UserRegistrationComponent implements OnInit {
 
   async proceed()
   {
+    this.submitted = true;
+  
+    if (this.myform.invalid) { 
+      return;
+    }
+
     if(this.myform.valid)
     {
             let res = await this.ShoppingApiService.getOTP(this.myform.controls["mobile"].value)
@@ -201,8 +213,8 @@ export class UserRegistrationComponent implements OnInit {
                 this.afterSubmit=true;
 
     }
-        this.myform.controls["otp"].setValidators(Validators.required);
-        this.myform.controls["otp"].updateValueAndValidity;
+        // this.myform.controls["otp"].setValidators(Validators.required);
+        // this.myform.controls["otp"].updateValueAndValidity;
   }
 
   goback()
@@ -210,7 +222,10 @@ export class UserRegistrationComponent implements OnInit {
     this.afterSubmit=false;
   }
 
-
+  onSubmitOtp() 
+  {
+    let userid = this.OtpForm.controls["Otp"].value;
+  }
   }
 
   

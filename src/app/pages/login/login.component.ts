@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, Inject } from '@angular/core';
+import { Component, OnInit,Input, Inject,EventEmitter, Output } from '@angular/core';
 import {tokenParams} from './token'
 import {ShoppingApiService} from '../../service/shopping-api.service'
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -6,11 +6,14 @@ import {FormGroup,FormBuilder, Validators} from '@angular/forms';
 import {authguard} from '../../service/auth-guard'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-//import { stringify } from '@angular/core/src/render3/util';
-
 import { LoadingIndicatorServiceService } from '../../service/loading-indicator-service.service';
-
 import { itemService } from '../itemdetails/itemdetails.service';
+import { HttpClient } from '@angular/common/http';
+import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
+import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -19,6 +22,7 @@ import { itemService } from '../itemdetails/itemdetails.service';
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
+  
   token:tokenParams=new tokenParams();
   details:any[];
   public redirectUrl: string;
@@ -29,15 +33,23 @@ export class LoginComponent implements OnInit {
   isOk=false;
   mobile:string="";
   loading:boolean=false;
+  private accessToken = '';
+  user: SocialUser;
+  loggedIn: boolean;
+  isText:boolean=false;
+  eyeIcon:string="fa-eye-slash";
+  type:string="password";
+  
   constructor(  private route: ActivatedRoute,private loadingIndicatorService: LoadingIndicatorServiceService,
-            private router: Router,private authguard:authguard,  private http:ShoppingApiService, private fb:FormBuilder,private location:Location,private itemService:itemService) 
+            private router: Router,private authguard:authguard,  private http:ShoppingApiService, private fb:FormBuilder,private location:Location,private itemService:itemService,
+    private googleauthService: SocialAuthService, private httpClient: HttpClient) 
     
    {
     loadingIndicatorService
     .onLoadingChanged
     .subscribe(isLoading => this.loading = isLoading);
     
-   /// this.itemService= new itemService();
+   
 
 
    }
@@ -45,23 +57,45 @@ export class LoginComponent implements OnInit {
   ngOnInit():void {
   this.loginForm=this.fb.group({
 
-        username:['',[Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
-        
+       // username:['',[Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
+       username:['',[Validators.required]],
         password:['',[Validators.required]],
         rememberme:{value:true,disabled:false}, //default value
         mobileNumber:['na',[Validators.required]]
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+   
+   /* Google id authentication temporarily disable
+   
+    this.googleauthService.authState.subscribe((user) => {
+     this.user = user;
+     this.loggedIn = (user != null);
+     console.log("user", user);
+     localStorage.setItem('id_token',user.idToken);
+     this.http.userFullName(user.firstName);
+     
+   });
+*/
 
  }
+
+ 
+ GoogleLogin(): void {
+// this.googleauthService.getAccessToken(GoogleLoginProvider.PROVIDER_ID)
+//     .then(accessToken => 
+//       {
+//         this.accessToken = accessToken
+//         console.log("googleaccesstoken",this.accessToken)
+//       }
+      
+//       );
   
- populateTestData():void {
+    //this.googleauthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+   alert(11)
 
-
-
+  
 }
-
 
   onSubmit() 
   {
@@ -167,11 +201,29 @@ async closeModalDialog()
       return false;
     }
 
-// get itemIdDetail():number
-// {
-//   return this.itemService.itemid;
-// }
+GoogleCalendarData(): void {
+  if (!this.accessToken) return;
 
+  this.httpClient
+    .get('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+      headers: { Authorization: `Bearer ${this.accessToken}` },
+    })
+    .subscribe((events) => {
+      alert('Look at your console');
+      console.log('events', events);
+    });
+}
+
+GooglerefreshToken(): void {
+  this.googleauthService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID);
+}
+
+hideShowPress(){
+  
+  this.isText=!this.isText;
+  this.isText ? this.eyeIcon="fa-eye" : this.eyeIcon="fa-eye-slash";
+  this.isText?this.type="text" :this.type="password";
+}
 
 
 }

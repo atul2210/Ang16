@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {LoginComponent} from './login.component';
 import { Routes,RouterModule } from '@angular/router';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 const routes: Routes = [{ path: '', component: LoginComponent },
 
@@ -11,7 +12,8 @@ const routes: Routes = [{ path: '', component: LoginComponent },
   declarations: [LoginComponent],
   imports: [
     CommonModule,FormsModule,ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    GoogleSigninButtonModule
   ]
 })
 export class LoginModule { }
