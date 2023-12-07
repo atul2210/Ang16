@@ -1,21 +1,12 @@
 export class registration
 {
 
-    mobile:string;
-    firstName:string;
-    middleName:string;
-    lastName:string;
-    myemail:string;
-    password:string;
-    address:string;
-    city:string;
-    mystate:string;
-    ulternateMobile:string;
-    state:string;
-    pin:string;
-    otp:number;
-    PrivacyAgreed:boolean;
-    emailId:string
+    Otp:string
+    mobile:string
+    firstLastName :string
+    email :string
+    password :string
+   
 }
 
 

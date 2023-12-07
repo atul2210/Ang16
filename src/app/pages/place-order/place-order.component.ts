@@ -130,21 +130,16 @@ export class PlaceOrderComponent implements OnInit {
     
     if(this.currentsession!=='undefined')
     {
-      //alert(this.PlaceOrderForm.controls["userMiddleName"].value);
-      regis.middleName =  this.PlaceOrderForm.controls["userMiddleName"].value==='undefined'?'':this.PlaceOrderForm.controls["userMiddleName"].value;
-      regis.lastName= this.PlaceOrderForm.controls["userLastName"].value;
-      regis.address= this.PlaceOrderForm.controls["address"].value;
-      regis.city= this.PlaceOrderForm.controls["city"].value;
-      regis.pin= this.PlaceOrderForm.controls["pin"].value;
-      regis.firstName= this.PlaceOrderForm.controls["username"].value;
-      regis.state= this.PlaceOrderForm.controls["mystate"].value;
-     regis.emailId=localStorage.getItem("email");
-      regis.PrivacyAgreed=ee;
-
-     
-
-
-
+    //   //alert(this.PlaceOrderForm.controls["userMiddleName"].value);
+    //   regis.middleName =  this.PlaceOrderForm.controls["userMiddleName"].value==='undefined'?'':this.PlaceOrderForm.controls["userMiddleName"].value;
+    //   regis.lastName= this.PlaceOrderForm.controls["userLastName"].value;
+    //   regis.address= this.PlaceOrderForm.controls["address"].value;
+    //   regis.city= this.PlaceOrderForm.controls["city"].value;
+    //   regis.pin= this.PlaceOrderForm.controls["pin"].value;
+    //   regis.firstName= this.PlaceOrderForm.controls["username"].value;
+    //   regis.state= this.PlaceOrderForm.controls["mystate"].value;
+    //  regis.emailId=localStorage.getItem("email");
+    //   regis.PrivacyAgreed=ee;
     
       this.service.paymentreceive(localStorage.getItem("userSession"),regis,this.pmtservice.GetPaymentOption)
         .subscribe((res:Response) =>

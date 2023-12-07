@@ -14,12 +14,8 @@ import Validation from '../../utils/Validation';
   styleUrls: ['./user-registration.component.css'],
 })
 export class UserRegistrationComponent implements OnInit {
-//////  isOtpOK:boolean=true;
-  states: string[] = [
-    // 'Uttar Pradesh',
-    // 'Delhi',
-    // 'Madhya Pradesh',
-  ];
+
+ 
   citeis:any=null;
   selectedState;
 
@@ -31,21 +27,17 @@ export class UserRegistrationComponent implements OnInit {
   entMobile:number
   err:any;
   messege:string="";
+   
  
 
 
   myform: FormGroup = new FormGroup({
-    //username: new FormControl(''),
+    
     mobile: new FormControl(''),
     firstName: new FormControl(''),
-   // middleName: new FormControl(''),
-    //lastName: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-    
     confirmPassword: new FormControl(''),
-    //city: new FormControl(''),
-    //address: new FormControl(''),
   });
   submitted = false;
  
@@ -53,26 +45,20 @@ export class UserRegistrationComponent implements OnInit {
     Otp: new FormControl(''),
   });
   Otpsubmitted = false;
-  constructor(private formBuilder: FormBuilder, private ActivatedRoute:ActivatedRoute,private router:Router,private ShoppingApiService:ShoppingApiService,private activateuserservce:activateuserservce) { }
+  constructor(private formBuilder: FormBuilder, private ActivatedRoute:ActivatedRoute,private router:Router,private ShoppingApiService:ShoppingApiService,private activateuserservce:activateuserservce) { 
+    
+  }
   
   
   ngOnInit() {
-    let userform:FormGroup;
+    
     this.myform = this.formBuilder.group(
       {
        
-        // username: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.minLength(6),
-        //     Validators.maxLength(20),
-        //   ],
-        // ],
+       
         mobile: ['', [Validators.required,  Validators.minLength(10), Validators.maxLength(10)]],
         firstName: ['', Validators.required],
-        //middleName: [false, Validators.required],
-        //lastName: ['', Validators.required],
+        
         email: ['', [ Validators.email]],
         password: [
           '',
@@ -83,9 +69,8 @@ export class UserRegistrationComponent implements OnInit {
           ],
         ],
         confirmPassword: ['', Validators.required],
-       // city:  ['', Validators.required],
-       // address:  ['', Validators.required],
-        acceptTerms: [false, Validators.requiredTrue],
+      
+        //acceptTerms: [false, Validators.requiredTrue],
       },
       {
         validators: [Validation.match('password', 'confirmPassword')],
@@ -95,33 +80,9 @@ export class UserRegistrationComponent implements OnInit {
 
     this.OtpForm = this.formBuilder.group(
       {
-       
-        Otp: [
-          '',
-          [
-            Validators.required,
-          ],
-        ]
+        Otp:[ '', [Validators.required]]
       }
     );
-
-
-
-    // this.createFormControls();
-    // this.createForm();
-   
-    //this.myform.controls["mobile"].patchValue(this.ActivatedRoute.snapshot.params['mobile']);
-    
-    this.ShoppingApiService.GetStates()
-    .subscribe((res)=>
-    {
-      this.ResState=res.body;
-      this.states=this.ResState;
-      
-      
-    });
-
-
 
     }
    
@@ -129,6 +90,10 @@ export class UserRegistrationComponent implements OnInit {
     
      
       return this.myform.controls;
+    }
+
+    get fotp(): { [key: string]: AbstractControl } {
+      return this.OtpForm.controls;
     }
   
     onSubmit(): void {
@@ -146,52 +111,35 @@ export class UserRegistrationComponent implements OnInit {
       this.myform.reset();
     }
     
-    save() 
+    onSubmitOtp() 
     { 
-
-     
       if(this.myform.valid)
       {
-
         let data: registration;
         data = new registration();
+        data.Otp = this.OtpForm.controls['Otp'].value; 
         data.mobile = this.myform.controls['mobile'].value; 
-        data.ulternateMobile = this.myform.controls["ulternatemobile"].value;
-        data.firstName = this.myform.controls["firstName"].value;
-        data.middleName = this.myform.controls["middleName"].value;
-        data.lastName = this.myform.controls["lastName"].value;
-        data.myemail = this.myform.controls["myemail"].value;
+        data.firstLastName = this.myform.controls["firstName"].value;
         data.password = this.myform.controls["password"].value;
-        data.address = this.myform.controls["address"].value;
-        data.city = this.myform.controls["city"].value;
-
-          this.ShoppingApiService.addUser(data)
+        data.email = this.myform.controls["email"].value;
+        this.ShoppingApiService.addUser(data)
           .subscribe((m:Response)=>
           {
             this.response=m;
             this.err=this.response;
-            this.router.navigateByUrl('/NewUserActivate')
+            if(data.email!=null || data.email.trim()!=="")
+            {
+              this.router.navigateByUrl('/NewUserActivate');
+            }
           },
           (err) => 
           {
-                 
             this.router.navigateByUrl("/Error/"+err.error.error +"/regis/"+data.mobile )
           });
     }
   }
     
-  GetCities(StateId:string)
-  {
-
-   
-    this.ShoppingApiService.GetCities(StateId)
-    .subscribe((res:Response)=>
-    {
-        this.citeis=res.body
-     ////   console.log(this.citeis)
-    });
-  }
-
+ 
   async proceed()
   {
     this.submitted = true;
@@ -204,17 +152,16 @@ export class UserRegistrationComponent implements OnInit {
     {
             let res = await this.ShoppingApiService.getOTP(this.myform.controls["mobile"].value)
                 .then((res:Response)=>{                 
-                this.messege= "We have send an OTP to your Mobile Number " + this.myform.controls["mobile"].value + "  Please check and enter OTP."
+                this.messege= "We have sent an OTP to your Mobile Number " + this.myform.controls["mobile"].value + "  Please check and enter OTP.";
+                this.isOtp=true;
                 })
                 .catch(err=>
                 {
                   this.err=err;
                 });
                 this.afterSubmit=true;
-
     }
-        // this.myform.controls["otp"].setValidators(Validators.required);
-        // this.myform.controls["otp"].updateValueAndValidity;
+        
   }
 
   goback()
@@ -222,11 +169,8 @@ export class UserRegistrationComponent implements OnInit {
     this.afterSubmit=false;
   }
 
-  onSubmitOtp() 
-  {
-    let userid = this.OtpForm.controls["Otp"].value;
-  }
-  }
+  
+}
 
   
 

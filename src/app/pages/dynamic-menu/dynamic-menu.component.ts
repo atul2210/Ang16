@@ -1,6 +1,6 @@
 import { Component, OnInit,OnDestroy,Input, Inject, Output, EventEmitter } from '@angular/core';
 import {MenuServiceService} from '../../service/menu/menu-service.service'
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { SearchServiceService } from '../../service/search-service.service';
 import { Router,NavigationEnd, ActivatedRouteSnapshot } from '@angular/router';
@@ -23,6 +23,15 @@ export class DynamicMenuComponent implements OnInit {
   menuHtml:string="";  private subscription: Subscription;
   pageindex:number=0;
   pagesize:number=0;
+  data:string;  
+ 
+  pageArray:any[];
+  count:number;
+  dynamicHtml:string;
+  private request$: Observable<any>;
+  deviceInfo = null;
+ 
+ 
   //@Input() items:any;
   //@Input() menuName: string;
  
@@ -60,20 +69,39 @@ export class DynamicMenuComponent implements OnInit {
   
 
   this.ShoppingApiService.MenuId(id);
-  //Commented on 2-June-2023
-  //this.router.navigateByUrl('/menu/'+id);
-
-  //end Commented on 2-June-2023
- /// alert('end dynamic menu '  + id);
-  debugger;
+ 
  }
 
   
-// ngOnDestroy()
-// {
-//   this.subscription.unsubscribe();
-   
-// }
+
 searchResult()
-{}
+{
+
+}
+// public testarr: Array<any> = [];
+// public itemlist: Array<any> = [];
+// public onScrollDown(mnuId:number): void {
+
+   
+//   this.servicesearch.GetItems(mnuId,this.pageindex,this.pagesize,(itemsarr)=>
+//   {
+//       this.count = itemsarr.itemCount;
+//       console.log('pconpp', this.testarr)
+//       if(this.pageindex===1)
+//       {
+//         this.testarr =itemsarr.itemDetails
+//         this.pageindex++;
+//       }
+//       else
+//       {
+//          this.testarr = this.testarr.concat(itemsarr.itemDetails);
+//          this.pageindex++;
+//       }
+//   });
+// }
+
+
+
+
+
 }

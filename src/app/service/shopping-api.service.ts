@@ -189,26 +189,19 @@ public GetHomePageItems(pagesize:string,pageindex:string):Observable<any>
       localStorage.removeItem("expires_at"); 
       localStorage.removeItem("email");
       localStorage.removeItem("fullName");
-      this.uri=this.baseUrl+"/api/user/NewUser/";
+      this.uri=this.baseUrl+"/User/NewUser";
       var headers = new HttpHeaders();
-      headers.append('Content-Type', 'application/form-data');
+      headers.append('Content-Type', 'application/json');
+      //headers.append('accept','*/*')
+      debugger;
       return this.http.post<registration>(this.uri,
           {
-            "emailId": user.myemail,
-            "password": user.password,
-            "firstName": user.firstName,
-            "middleName": user.middleName,
-            "lastName": user.lastName,
+            "otp":user.Otp,
             "mobile": user.mobile,
-            "ulternateMobile": user.ulternateMobile,
-            "address":user.address,
-            "city":user.city,
-            "state":user.mystate,
-            "pin":user.pin,
-            "enterOPT":user.otp
-           
-
-          },
+            "firstLastName": user.firstLastName,
+            "email": user.email,
+            "password": user.password,
+           },
           {
               headers:headers
           }
@@ -217,8 +210,7 @@ public GetHomePageItems(pagesize:string,pageindex:string):Observable<any>
       catchError(this.handError),
       tap((res) =>
       {
-       
-        localStorage.setItem("email",user.myemail);
+        localStorage.setItem("email",user.email);
       }),);
 
 
@@ -264,7 +256,7 @@ getUserFullName():Observable<any>
 public async getOTP(mobile:string) :Promise<any>
 {
   
-  this.uri=this.baseUrl+"/api/sms/Otpsender?mobileNumber="+mobile;
+  this.uri=this.baseUrl+"/user/GenerateOtp?mobileNumber="+mobile;
    return await this.http.get<Promise<optResponse>>(this.uri, { observe: 'response'}).pipe(
    tap((res) =>{
    
