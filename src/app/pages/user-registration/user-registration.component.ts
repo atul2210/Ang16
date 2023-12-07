@@ -28,7 +28,9 @@ export class UserRegistrationComponent implements OnInit {
   err:any;
   messege:string="";
    
- 
+  errormsg:string;
+  isValid:boolean=false;
+
 
 
   myform: FormGroup = new FormGroup({
@@ -150,16 +152,23 @@ export class UserRegistrationComponent implements OnInit {
 
     if(this.myform.valid)
     {
-            let res = await this.ShoppingApiService.getOTP(this.myform.controls["mobile"].value)
-                .then((res:Response)=>{                 
-                this.messege= "We have sent an OTP to your Mobile Number " + this.myform.controls["mobile"].value + "  Please check and enter OTP.";
-                this.isOtp=true;
-                })
-                .catch(err=>
-                {
-                  this.err=err;
-                });
-                this.afterSubmit=true;
+      this.ShoppingApiService.VerifyUser(this.myform.controls['mobile'].value,this.myform.controls["email"].value,)
+      .subscribe((m)=>
+      {
+        if(m==="valid")
+        {
+          this.errormsg="";
+          this.isValid=false;
+          this.isOtp=true;
+         
+        }
+        else
+        {
+          this.errormsg=m;
+          this.isValid=true;
+          this.isOtp=false;
+        }
+      });
     }
         
   }

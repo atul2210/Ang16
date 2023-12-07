@@ -2,6 +2,7 @@
 <div class="outer">
   <div class="container">
     <div *ngIf="!isOtp"> 
+  
     <div class="row">
       <div class="offset md2 col-lg-5 col-md-12 offset-lg-4 offset-md-3">
         <div class="panel border bg-white ">
@@ -11,7 +12,7 @@
                   <div class="panel-body p-3">
                     <form [formGroup]="myform" (ngSubmit)="proceed()">
                         <div class="class form-group pt-1">
-                          <div class="input-field">
+                                                   <div class="input-field">
                             <div class="font-weight-bold">Your Mobile Number</div>
                             <input
                               type="text"
@@ -107,6 +108,7 @@
                               
                               </div>
                             </div>  
+                            <div *ngIf="isValid"> <div  class ="text-danger">{{errormsg}} </div> </div>
 
                           <div class="mx-3 my-2 py-2 border">
                             <div class="m-2">
@@ -125,19 +127,23 @@
   
         </div>
         </div>
-    </div>
-   <!-- // <div *ngIf="isOtp">  -->
-      <div > 
+    
+    <div *ngIf="isOtp"> 
+      
       <div class="row">
         <div class="offset md2 col-lg-5 col-md-12 offset-lg-4 offset-md-3">
           <div class="otppanel border bg-white ">
               <div class="panel-heading">
-                <h3 class="pt-3 font-weight-bold">Verify OTP </h3>
+                <div class="pt-3 font-weight-bold"> 
+                  <div  class ="text-primary">We have sent OTP to your mobile number  {{myform.controls['mobile'].value}}.
+                      Please enter the OTP sent to your mobile number. 
+                  </div> 
+                </div>
               </div>
                     <div class="panel-body p-3">
                       <form [formGroup]="OtpForm" (ngSubmit)="onSubmitOtp()">
                           <div class="class form-group pt-1">
-                            <div class="font-weight-bold">Enter OTP</div>
+                           
                                 <input
                                   type="text"
                                   formControlName="Otp"
@@ -163,6 +169,7 @@
           </div>
       </div>
   </div>
+</div>
 </div>
   
 

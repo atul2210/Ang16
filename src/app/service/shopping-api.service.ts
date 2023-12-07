@@ -191,7 +191,7 @@ public GetHomePageItems(pagesize:string,pageindex:string):Observable<any>
       localStorage.removeItem("fullName");
       this.uri=this.baseUrl+"/User/NewUser";
       var headers = new HttpHeaders();
-      headers.append('Content-Type', 'application/json');
+      headers.append('Content-Type', 'n/json');
       //headers.append('accept','*/*')
       debugger;
       return this.http.post<registration>(this.uri,
@@ -454,6 +454,21 @@ public UpdateCart(itemid,AddedReducedquantity,sizeId,colorId,isadded:boolean,isd
 
   );
 }
+
+public VerifyUser(mobile:string,email:string):Observable<any>
+{
+  this.uri=this.baseUrl+"/User/VerifyUser";
+  const params = new HttpParams()
+  .set('mobile', mobile.toString())
+  .set('email',email.toString());
+                               
+  let httpOptions = {
+    params: params
+  };
+  return this.http.get(this.uri,httpOptions)
+}
+
+
 
 }
 
