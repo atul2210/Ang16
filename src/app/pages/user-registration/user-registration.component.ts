@@ -30,7 +30,7 @@ export class UserRegistrationComponent implements OnInit {
    
   errormsg:string;
   isValid:boolean=false;
-
+  invalidOtp:boolean=false;
 
 
   myform: FormGroup = new FormGroup({
@@ -115,6 +115,7 @@ export class UserRegistrationComponent implements OnInit {
     
     onSubmitOtp() 
     { 
+      this.Otpsubmitted=true;
       if(this.myform.valid)
       {
         let data: registration;
@@ -125,19 +126,22 @@ export class UserRegistrationComponent implements OnInit {
         data.password = this.myform.controls["password"].value;
         data.email = this.myform.controls["email"].value;
         this.ShoppingApiService.addUser(data)
-          .subscribe((m:Response)=>
+          .subscribe(m=>
           {
-            this.response=m;
-            this.err=this.response;
-            if(data.email!=null || data.email.trim()!=="")
+            if(m!="Invalid OTP")
             {
+              this.response=m;
+              this.invalidOtp=false;
               this.router.navigateByUrl('/NewUserActivate');
+             
             }
-          },
-          (err) => 
-          {
-            this.router.navigateByUrl("/Error/"+err.error.error +"/regis/"+data.mobile )
-          });
+            else
+            {
+              this.invalidOtp=true;
+            }
+           
+          }
+          );
     }
   }
     

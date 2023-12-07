@@ -152,11 +152,10 @@
                                 />
                                 <div *ngIf="Otpsubmitted && fotp['Otp'].errors" class="invalid-feedback">
                                   <div *ngIf="fotp['Otp'].errors['required']">OTP is required</div>
-                                  
-                                 
                                   </div>
                                 </div>
-                              
+                                <div class ="text-danger" *ngIf="invalidOtp">Invalid OTP</div>
+                                
                             
                           <div class="mx-3 my-2 py-2 border">
                             <div class="m-2">
